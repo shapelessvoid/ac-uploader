@@ -1,0 +1,17 @@
+[center][img={{ poster }}][/center]
+[color=red]##[/color] [color=blue][size=2][b]Режисьор[/b][/size][/color] : [b]{{ director }}[/b] {% if writer|length %}
+[color=red]##[/color] [color=blue][size=2][b]Сценарист[/b][/size][/color] : [b]{{ writer }}[/b]{% endif %} {% if producer|length %}
+[color=red]##[/color] [color=blue][size=2][b]Продуцент[/b][/size][/color] : [b]{{ producer }}[/b]{% endif %} {% if cast|length %}
+[color=red]##[/color] [color=blue][size=2][b]В ролите[/b][/size][/color] : [b]{{ cast }}[/b]{% endif %}
+[color=red]##[/color] [color=blue][size=2][b]IMDB[/b][/size][/color] : [b][url={{ imdb_url }}]Линк към IMDB[/url][/b]
+[color=red]##[/color] [color=blue][size=2][b]Държава[/b][/size][/color] : [b]{{ country }}[/b]
+[color=red]##[/color] [color=blue][size=2][b]Година[/b][/size][/color] : [b]{{ year }}[/b]
+[color=red]##[/color] [color=blue][size=2][b]Времетраене[/b][/size][/color] : [b]{{ duration }} минути[/b]
+[color=red]##[/color] [color=blue][size=2][b]Аудио[/b][/size][/color] : [b]{{ audio_languages }}[/b]
+[color=red]##[/color] [color=blue][size=2][b]Субтитри[/b][/size][/color] : [b]{{ subtitle_languages }}[/b]
+[color=red]##[/color] [color=blue][size=2][b]Резюме[/b][/size][/color] : [b]{{ description }}[/b]
+
+[center]
+[imgw={{ shot1 }}] [imgw={{ shot2 }}] 
+[imgw={{ shot3 }}] [imgw={{ shot4 }}] 
+[/center]

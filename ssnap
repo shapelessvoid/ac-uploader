@@ -1,0 +1,36 @@
+#!/bin/bash
+
+ptint_bar(){
+   printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' = || echo "==========="
+}
+ptint_bar
+ABORT=0
+if [ -z "$1" ]; then ABORT=1; echo "Missing input filename..."; fi
+if [ ! -f "$1" ]; then ABORT=1; echo "Filename \"$1\" does not exist..."; fi
+if [ -z "$2" ]; then ABORT=1; echo "Missing number screens..."; fi
+if [ ! -d "$3" ]; then ABORT=1; echo "Missing third param - output directory"; fi
+if [ $ABORT -eq 1 ]
+ then
+   echo -e "$0 requires two arguments...\nFirst is the filename, second is number of screenshots..."
+   exit
+fi
+FILENAME="$1"
+echo "Processing: $FILENAME"
+MEDIA_INFO=`mediainfo "--Inform=Video;%FrameCount% %FrameRate%\n" "$FILENAME" | head -n1`
+TOTAL_FRAMES=$(echo $MEDIA_INFO| cut -d' ' -f 1)
+echo "Total frame: $TOTAL_FRAMES"
+FPS=$(echo $MEDIA_INFO| cut -d' ' -f 2)
+echo "FPS: $FPS"
+NUMFRAMES=$2
+NUMB_SC=$(printf %0.f $(echo "scale=2;$TOTAL_FRAMES/$FPS" | bc -l))
+echo "Number of seconds: $NUMB_SC"
+ADD_D=$(($NUMB_SC/$(($NUMFRAMES+1))))
+ADD=$ADD_D
+for i in $(seq 1 $NUMFRAMES)
+ do
+   echo "Doing second $ADD"
+   # ffmpeg -loglevel panic -hide_banner -ss $ADD -i "$FILENAME" -vf scale=w=\(sar*iw\):h=ih -frames:v 1 "$ADD-$FILENAME.png"
+   ffmpeg -loglevel panic -hide_banner -ss $ADD -i "$FILENAME" -frames:v 1 $(realpath "$3/screenshot-$ADD.jpg")
+   ADD=$(($ADD+$ADD_D))
+done
+ptint_bar

@@ -1,0 +1,9 @@
+torf
+cli_ui
+humanfriendly
+qbittorrent-api
+themoviedb
+Jinja2
+wand
+beautifulsoup4
+pymediainfo
